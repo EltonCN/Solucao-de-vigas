@@ -1,15 +1,12 @@
-
-function recebeApoios()
-  numDeApoios = input("Quantos apoios teremos? (valor máximo de 10 pinos) \n");
-  
-  apoios = [1 , 1, 1, 1, 1, 1, 1, 1, 1, 1];
+function retval = recebeApoios(apoios)
+  numDeApoios = input("Quantos apoios teremos? \n");
   
   for i = 1: numDeApoios
-    apoios(i) = menu ("Qual o tipo de apoio?", "Engastado", "Pino", "Rolete");
+    
+    apoios{i}.nome = input("qual o tipo do apoio?: ");
+    apoios{i}.orient = input("qual a orientação do apoio?: ");
+    apoios{i}.dist = input("qual a distancia da origem?: ");
+    
   endfor
-  
-  apoios
-  
+  retval = apoios;
 endfunction
-
-recebeApoios()
