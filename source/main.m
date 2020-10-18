@@ -1,13 +1,15 @@
 clear
 clc
 
-apoios = {};
-forcas = {};
-torques = {};
-momentos = {};
+#viga = 0;
+#apoios = {};
+cargas = {};
+cargaPonto = {};
+#grandezas = {};
 
-apoios = recebeApoios(apoios);
-forcas = recebeForcas(forcas);
-disp(forcas);
-torques = recebeTorques(torques);
-momentos = recebeMomentos(momentos);
+#viga = recebeViga(viga);
+#apoios = recebeApoios(apoios);
+cargas = recebeCargaDist(cargas);
+cargaPonto = cargaParaPonto(cargas);
+#grandezas = recebeGrandezas(gradezas);
+#disp(grandezas);
