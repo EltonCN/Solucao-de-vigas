@@ -20,9 +20,3 @@ function retorno = setNaoCalculado(var)
     var.magnitude = 0
 
 endfunction
-
-fuction retorno = calculaCoeficienteMomento(var)
-
-    
-
-endfuncion
