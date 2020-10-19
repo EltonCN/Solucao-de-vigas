@@ -2,7 +2,7 @@ source grandeza.m
 source variavel.m
 
 function novoSistema = novoSistema(x, y)
-    novoSistema = struct("b", [0;0;0;0;0;0], "var", [], "A", [], "x", x, "y", y, "calculado", false, "grandeza", [])
+    novoSistema = struct("b", [0;0;0;0;0;0], "var", [], "A", [], "x", x, "y", y, "calculado", false, "grandeza", [], "z", 0)
 
 endfunction
 
@@ -61,31 +61,54 @@ function retorno = solve(sistema)
     A = []
     b = []
 
-    index = 1
+    indice = 1
 
     for i = 1:6
         zero = true
-        for j = 1:size(sistema.A(i))(1)
+        for j = 1:columns(sistema.A(i,:))
             
             if(sistema.A(i,j) != 0)
                 zero = false
+                break
             endif
         endfor
 
         if(zero == false)
             if(sistema.b(i) != 0)
-                b(index) = sistema.b(i)
+                b(indice) = sistema.b(i)
 
                 for j = 1:columns(sistema.A(i,:))
-                    A(index,j ) = sistema.A(i, j)
+                    A(indice,j ) = sistema.A(i, j)
                 endfor
 
-                index += 1
+                indice += 1
             endif
         endif
     endfor
 
+    indiceVar = 1:columns(sistema.var)
+
+    #Remove colunas apenas com 0
+    for j = 1:columns(A)
+        zero = true
+        for i = 1:rows(A)
+            if(A(i,j) != 0)
+                zero = false
+                break
+            endif
+        endfor
+        
+        if(zero)
+            A(:,j) = []
+            indiceVar(j) = []
+
+            sistema.var(j) = setValor(sistema.var(j), 0)
+        endif
+
+    endfor
+
     try
+        sistema.teste = A
         result = inv(A) * b
     catch err
         retorno = sistema
@@ -94,10 +117,11 @@ function retorno = solve(sistema)
         return
     end_try_catch
 
-    for i = 1:rows(sistema.var)
-        sistema.var(i) = setValor(sistema.var(i), result(i))
+    for i = 1:columns(result)
+        sistema.var(indiceVar(i)) = setValor(sistema.var(indiceVar(i)), result(i))
 
     endfor
+
 
     sistema.calculado = true
 
@@ -115,13 +139,14 @@ function retorno =  merge(sistemaA, sistemaB)
 
     indice = columns(sistemaA.var)+1
 
+    distancia = [abs(sistemaA.x-sistemaB.x),abs(sistemaA.y-sistemaB.y),abs(sistemaA.z-sistemaB.z)]
+
     for i = 1:columns(sistemaB.var)
+        sistemaA.var(indice) = calculaCoeficienteMomento(sistemaB.var(i), distancia(1),distancia(2),distancia(3))
 
-
+        indice+=1
     endfor
 
 
-    sistema = clearCalculado(sistemaA)
-
-    retorno = sistema
+    retorno = clearCalculado(sistemaA)
 endfunction

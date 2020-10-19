@@ -20,7 +20,10 @@ sistema = recebeGrandeza(sistema, grandeza)
 var2 = novaVariavel()
 var2.coeficiente(2) = 1
 
-sistema = recebeVariavel(sistema, var2)
+sistema2 = novoSistema(10,0)
+sistema2 = recebeVariavel(sistema2, var2)
+
+sistema = merge(sistema, sistema2)
+
 sistema = solve(sistema)
 
-sistema2 = novoSistema(0,0)
