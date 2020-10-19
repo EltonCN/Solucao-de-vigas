@@ -139,7 +139,7 @@ function retorno =  merge(sistemaA, sistemaB)
 
     indice = columns(sistemaA.var)+1
 
-    distancia = [abs(sistemaA.x-sistemaB.x),abs(sistemaA.y-sistemaB.y),abs(sistemaA.z-sistemaB.z)]
+    distancia = [sistemaA.x-sistemaB.x,sistemaA.y-sistemaB.y,sistemaA.z-sistemaB.z]
 
     for i = 1:columns(sistemaB.var)
         sistemaA.var(indice) = calculaCoeficienteMomento(sistemaB.var(i), distancia(1),distancia(2),distancia(3))
