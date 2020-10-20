@@ -2,12 +2,12 @@ source grandeza.m
 source variavel.m
 source sistemaLinear.m
 
-grandeza = novaGrandeza();
+grandeza = novaGrandeza(0, 0);
 grandeza.magnitude = 10;
 grandeza.coeficiente(1) = 1;
 
 
-var = novaVariavel();
+var = novaVariavel(0,0 );
 var.coeficiente(1) = 1;
 
 
@@ -17,7 +17,7 @@ sistema = recebeGrandeza(sistema, grandeza);
 
 #sistema = solve(sistema)
 
-var2 = novaVariavel();
+var2 = novaVariavel(10,0);
 var2.coeficiente(2) = 1;
 
 sistema2 = novoSistema(10,0);
@@ -28,4 +28,3 @@ sistema = merge(sistema, sistema2);
 sistema = solve(sistema);
 
 sistema
-

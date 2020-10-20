@@ -1,22 +1,21 @@
 source grandeza.m
 
-function novaVar = novaVariavel()
-    novaVar = novaGrandeza()
+function novaVar = novaVariavel(x, y)
+    novaVar = novaGrandeza(x, y);
 
-    novaVar.calculada = false
+    novaVar.calculada = false;
 
 endfunction
 
 function retorno = setValor(var, valor)
-    var.calculada = true
+    var.calculada = true;
 
-    var.magnitude = valor
+    var.magnitude = valor;
 
-    retorno = var
+    retorno = var;
 endfunction
 
 function retorno = setNaoCalculado(var)
-    car.calculada = false
-    var.magnitude = 0
-
+    car.calculada = false;
+    var.magnitude = 0;
 endfunction

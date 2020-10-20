@@ -1,12 +1,26 @@
+source grandeza.m
+
 function retval = recebeGrandezas(grandezas)
-  numDeForcas = input("Quantas grandezas teremos? número de componentes de força + torque + momentos \n");
+  numDeForcas = input("Quantas grandezas teremos? Total de forças não distribuídas, momentos e torques?: \n");
   
   for i = 1: numDeGrandezas
     
-    grandezas{i}.magnitude = input("qual a magnitude da grandeza?: ");
-    grandezas{i}.eixo = input("qual o eixo da grandeza? x = 1, y = 2 z = 3: ");
-    grandezas{i}.ehForca = input("a grandeza é uma força?: sim = 1 não = 0 ");
-    grandezas{i}.distancia = input("qual a distancia da origem?: ");
+    x = input("Qual a posição x da grandeza?: ");
+    y = input("Qual a posição y da grandeza?: ");
+
+    grandezas(i) = novaGrandeza(x, y);
+
+    grandezas(i).magnitude = input("Qual a magnitude da grandeza?: ");
+
+    grandeza(i).tipo = input("A grandeza é um momento? Sim = 1, Não = 0: ");
+
+    eixo = input("Qual o eixo da grandeza? x = 1, y = 2 z = 3: ");
+
+    if(grandeza(i).tipo)
+      eixo += 3;
+    endif
+
+    grandeza(i).coeficiente(eixo) = 1;
   endfor
   
   retval = grandezas;
