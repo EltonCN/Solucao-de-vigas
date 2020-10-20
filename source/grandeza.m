@@ -1,4 +1,4 @@
-disp("")
+1;
 
 
 #tipo = true indica que é um momento
