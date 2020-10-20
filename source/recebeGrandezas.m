@@ -10,11 +10,11 @@ function retval = recebeGrandezas(grandezas)
 
     grandezas(i) = novaGrandeza(x, y);
 
-    grandezas(i).magnitude = input("Qual a magnitude da grandeza?: ");
-
     grandeza(i).tipo = input("A grandeza é um momento? Sim = 1, Não = 0: ");
 
-    eixo = input("Qual o eixo da grandeza? x = 1, y = 2 z = 3: ");
+    eixo = input("Qual o eixo da grandeza? x = 1, y = 2, z = 3: ");
+
+    grandezas(i).magnitude = input("Qual a magnitude da grandeza (utilize valor negativo para indicar uma orientação contrária ao eixo)?: ");
 
     if(grandeza(i).tipo)
       eixo += 3;
