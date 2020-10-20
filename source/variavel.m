@@ -18,4 +18,6 @@ endfunction
 function retorno = setNaoCalculado(var)
     car.calculada = false;
     var.magnitude = 0;
+
+    retorno = var;
 endfunction

@@ -73,8 +73,7 @@ function retorno = solve(sistema)
             endif
         endfor
 
-        if(zero == false)
-            if(sistema.b(i) != 0)
+        if(!sistema.b(i) == 0 )
                 b(indice) = sistema.b(i);
 
                 for j = 1:columns(sistema.A(i,:))
@@ -82,8 +81,8 @@ function retorno = solve(sistema)
                 endfor
 
                 indice += 1;
-            endif
         endif
+
     endfor
 
     indiceVar = 1:columns(sistema.var);
@@ -108,11 +107,10 @@ function retorno = solve(sistema)
     endfor
 
     try
-        sistema.teste = A;
         result = inv(A) * b;
     catch err
         retorno = sistema;
-        disp("ERRO: Sistema não pode ser resolvido]");
+        disp("ERRO: Sistema não pode ser resolvido");
 
         return
     end_try_catch
