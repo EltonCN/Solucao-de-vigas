@@ -33,7 +33,7 @@ sistema = merge(sistema, sistema2);
 
 #result2 = sistema;
 
-grandeza2 = novaGrandeza(10,0);
+grandeza2 = novaGrandeza(,0);
 grandeza2.magnitude = 10;
 grandeza2.coeficiente(4) = 1;
 
@@ -42,7 +42,7 @@ sistema = recebeGrandeza(sistema, grandeza2);
 #sistema = solve(sistema);
 
 #result3 = sistema;
-
+;
 grandeza3 = novaGrandeza(5,0);
 grandeza3.magnitude = 10;
 grandeza3.coeficiente(4) = 1;

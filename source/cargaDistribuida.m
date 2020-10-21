@@ -12,6 +12,7 @@ function novaCarga = novaCarga(x, comprimento)
     novaCarga.polinomio = [0,0,0,0];
     novaCarga.inicio = x;
     novaCarga.fim = x+comprimento;
+    novaCarga.coeficiente(2) = 1;
 
 endfunction
 
@@ -47,20 +48,20 @@ endfunction
 #Calcula a força pontual equivalente a carga
 #@param cargasDist - Carga distribuída que será convertida
 #@return A carga com posição e magnitude determinados
-function retval = cargaParaPonto(cargasDist)
+function retval = cargaParaPonto(cargaDist)
     
-    a = cargasDist.polinomio(4);
-    b = cargasDist.polinomio(3);
-    c = cargasDist.polinomio(2);
-    d = cargasDist.polinomio(1);
-    f1 = @(x) a.*x.^3.+b.*x.^2.+c.*x.+d; #+S
+    a = cargaDist.polinomio(4);
+    b = cargaDist.polinomio(3);
+    c = cargaDist.polinomio(2);
+    d = cargaDist.polinomio(1);
+    f1 = @(x) a.*x.^3.+b.*x.^2.+c.*x.+d; 
     f2 = @(x) x.*(a.*x.^3.+b.*x.^2.+c.*x.+d);
  
-    [q1, ier1, nfun1, err1] = quad(f1, novaCarga.inicio, novaCarga.fim);
-    [q2, ier2, nfun2, err2] = quad(f2, novacarga.inicio, novacarga.fim);
+    [q1, ier1, nfun1, err1] = quad(f1, cargaDist.inicio, cargaDist.fim);
+    [q2, ier2, nfun2, err2] = quad(f2, cargaDist.inicio, cargaDist.fim);
 
     cargaDist.x = q2/q1;
-    cargaDist.mag = q1;
+    cargaDist.magnitude = q1;
 
-  retval = cargasDist;
+    retval = cargaDist;
 endfunction

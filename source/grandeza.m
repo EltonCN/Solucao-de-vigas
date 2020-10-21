@@ -11,7 +11,7 @@
 #@param y - posição y da grandeza
 #@return A nova grandeza criada
 function novaGrandeza = novaGrandeza(x, y)
-    novaGrandeza = struct("magnitude", 0, "coeficiente",  [0, 0, 0, 0, 0, 0] , "tipo", false, "x", x, "y", y, "z", 0, "nome", "");
+    novaGrandeza = struct("magnitude", 0, "coeficiente",  [0, 0, 0, 0, 0, 0] , "tipo", false, "x", x, "y", y, "z", 0, "nome", "aaa");
 
 endfunction
 

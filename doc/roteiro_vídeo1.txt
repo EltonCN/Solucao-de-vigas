@@ -25,3 +25,5 @@ característico do problema.
     Nessa matriz geral, verificamos se temos apenas os coeficientes "importantes" para que o sistema possua
 solução. EM seguid invertemos a matriz e multiplicamos a inversa pelas variáveis do problema, resolvendo o sistema.
 Por fim tratamos os resultados finais para o output e a criação dos gráficos importantes.
+
+    Para ilustrar o programa, resolveremos o problema a seguir.

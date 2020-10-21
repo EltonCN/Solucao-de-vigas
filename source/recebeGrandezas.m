@@ -15,17 +15,17 @@ function retval = recebeGrandezas()
 
   for i = 1: numDeGrandezas
     
-    x = input("Qual a posição x da grandeza?: ");
-    y = input("Qual a posição y da grandeza?: ");
+    x = input("Qual a posicao x da grandeza?: ");
+    y = input("Qual a posicao y da grandeza?: ");
 
     grandezas(i) = novaGrandeza(x, y);
 
-    tipo = input("A grandeza é um momento? Sim = 1, Não = 0: ");
+    tipo = input("A grandeza eh um momento? Sim = 1, Nao = 0: ");
     grandezas(i).tipo = tipo;
 
     eixo = input("Qual o eixo da grandeza? x = 1, y = 2, z = 3: ");
 
-    grandezas(i).magnitude = input("Qual a magnitude da grandeza (utilize valor negativo para indicar uma orientação contrária ao eixo)?: ");
+    grandezas(i).magnitude = input("Qual a magnitude da grandeza (utilize valor negativo para indicar uma orientacao contraria ao eixo)?: ");
 
     if(grandezas(i).tipo)
       eixo += 3;
