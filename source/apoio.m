@@ -31,8 +31,8 @@ function variaveis = getVariavel(apoio)
             variaveis(1) = variavel;
             
             variavel = novaVariavel(apoio.x,apoio.y);
-            variavel.coeficiente(2) = 1 * cos(apoio.theta);
-            variavel.coeficiente(1) = 1 * sin(apoio.theta);
+            variavel.coeficiente(2) = 1 * sin(apoio.theta);
+            variavel.coeficiente(1) = 1 * cos(apoio.theta);
 
             variaveis(2) = variavel;
 
@@ -49,8 +49,8 @@ function variaveis = getVariavel(apoio)
             variaveis(1) = variavel;
             
             variavel = novaVariavel(apoio.x,apoio.y);
-            variavel.coeficiente(2) = 1 * cos(apoio.theta);
-            variavel.coeficiente(1) = 1 * sin(apoio.theta);
+            variavel.coeficiente(2) = 1 * sin(apoio.theta);
+            variavel.coeficiente(1) = 1 * cos(apoio.theta);
 
             variaveis(2) = variavel;
 

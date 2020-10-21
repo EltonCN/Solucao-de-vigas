@@ -35,7 +35,7 @@ endfunction
 function retorno = recebeVariavel(sistema, novaVariavel)
     sistema = clearCalculado(sistema);
 
-    sistema.var(rows(sistema.var)+1) = novaVariavel;
+    sistema.var(columns(sistema.var)+1) = novaVariavel;
 
     retorno = sistema;
 
@@ -115,12 +115,10 @@ function retorno = solve(sistema)
 
     indiceVar = 1:columns(sistema.var);
 
-    disp(A)
-
     #Remove colunas apenas com 0
-    for j = 1:columns(A)
+    for j = columns(A):-1:1
         zero = true;
-        for i = 1:rows(A)
+        for i = rows(A):-1:1
             if(A(i,j) != 0)
                 zero = false;
                 break

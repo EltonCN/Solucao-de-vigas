@@ -7,6 +7,11 @@ source grandeza.m
 function retval = recebeGrandezas()
   numDeGrandezas = input("Quantas grandezas teremos? Total de forças não distribuídas, momentos e torques?: \n");
 
+  if(numDeGrandezas == 0)
+    retval = [];
+    return
+  endif
+
 
   for i = 1: numDeGrandezas
     
