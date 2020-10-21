@@ -1,11 +1,17 @@
 source grandeza.m
 source variavel.m
 
+#Cria um novo sistema
+#@param x - Posição x
+#@param y - Posição y
 function novoSistema = novoSistema(x, y)
-    novoSistema = struct("b", [0;0;0;0;0;0], "var", [], "A", [], "x", x, "y", y, "calculado", false, "grandeza", [], "z", 0);
+    novoSistema = struct("b", [0;0;0;0;0;0], "var", [], "A", [], "x", x, "y", y, "calculado", false, "grandeza", [], "z", 0, "carga", []);
 
 endfunction
 
+#Define o sistema como não calculado
+#@param sistema - O sistema a ser definido
+#@return Sistema definido
 function retorno = clearCalculado(sistema)
     if(sistema.calculado == false)
         retorno = sistema;
@@ -23,6 +29,9 @@ function retorno = clearCalculado(sistema)
 endfunction
 
 #Recebe uma variável
+#@param sistema - Sistema que receberá a variável
+#@param novaVariavel - A variável que será recebida
+#@return O sistema com a variável
 function retorno = recebeVariavel(sistema, novaVariavel)
     sistema = clearCalculado(sistema);
 
@@ -32,15 +41,34 @@ function retorno = recebeVariavel(sistema, novaVariavel)
 
 endfunction
 
+#Recebe uma grandeza
+#@param sistema - Sistema que receberá a variável
+#@param grandeza - A grandeza que será recebida
+#@return O sistema com a grandeza
 function retorno = recebeGrandeza(sistema, grandeza)
     sistema = clearCalculado(sistema);
     
-    sistema.grandeza(rows(sistema.grandeza)+1) = grandeza;
+    sistema.grandeza(columns(sistema.grandeza)+1) = grandeza;
 
     retorno = sistema;
 
 endfunction
 
+function retorno = recebeCargaDist(sistema, carga)
+    sistema = clearCalculado(sistema);
+    
+    sistema.carga(columns(sistema.carga)+1) = carga;
+
+    grandeza = transformaCargaEmGrandeza(carga)
+
+    sistema.grandeza(columns(sistema.grandeza)+1) = grandeza;
+
+    retorno = sistema;
+endfunction
+
+#Resolve o sistema
+#@param - O sistema a ser resolvido
+#@return O sistema resolvido, caso seja possível (verificar atributo calculado)
 function retorno = solve(sistema)
     sistema = clearCalculado(sistema);
     
@@ -87,6 +115,8 @@ function retorno = solve(sistema)
 
     indiceVar = 1:columns(sistema.var);
 
+    disp(A)
+
     #Remove colunas apenas com 0
     for j = 1:columns(A)
         zero = true;
@@ -127,6 +157,9 @@ function retorno = solve(sistema)
 endfunction
 
 #Merge sistemaB no sistemaA
+#@param sistemaA - O sistema que receberá o outro sistema
+#@param sistemaB - Sistema que será recebido
+#@return SistemaA com variáveis do sistemaB
 function retorno =  merge(sistemaA, sistemaB)
     
     if(sistemaB.x<sistemaA.x)

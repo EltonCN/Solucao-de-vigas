@@ -2,6 +2,7 @@ source grandeza.m
 source variavel.m
 source sistemaLinear.m
 source recebeGrandezas.m
+source esforcoInterno.m
 
 grandeza = novaGrandeza(0, 0);
 grandeza.magnitude = 10;
@@ -28,18 +29,24 @@ sistema2 = recebeVariavel(sistema2, var2);
 
 sistema = merge(sistema, sistema2);
 
-sistema = solve(sistema);
+#sistema = solve(sistema);
 
-result2 = sistema;
+#result2 = sistema;
 
-grandeza2 = novaGrandeza(0,0);
+grandeza2 = novaGrandeza(10,0);
 grandeza2.magnitude = 10;
 grandeza2.coeficiente(4) = 1;
 
 sistema = recebeGrandeza(sistema, grandeza2);
 
-sistema = solve(sistema);
+#sistema = solve(sistema);
 
-result3 = sistema;
+#result3 = sistema;
 
-sistema
+grandeza3 = novaGrandeza(5,0);
+grandeza3.magnitude = 10;
+grandeza3.coeficiente(4) = 1;
+
+sistema = recebeGrandeza(sistema,grandeza3)
+
+#sistema = bubblesort(sistema)

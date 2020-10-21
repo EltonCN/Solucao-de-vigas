@@ -1,0 +1,27 @@
+Roteiro vídeo 1:
+
+    Para nosso programa decidimos por resolver um problema de escopo mais geral.
+Apesar de alguns desafios impostos pela linguagem de programação proposta,
+conseguimos um resultado satisfatório de encapsulamente de código e resolução
+de problemas.
+
+    Primeiramente, para o input de dados, dividimos a entrada em grandezas (forças, momentos e torques)
+, apoios (fixo, engastado e rolete), cargas distribuidas.
+ 
+Para as grandezas recebemos:
+    posição x; posição y; tipo; eixo e magnitude.
+
+Para os apoios recebemos:
+    tipo; angulo theta; posição x e posição y.
+
+Para cargas distribuídas recebemos:
+    o inicio da carga e relação a origem; o comprimento d carga;
+    e os coeficientes para um polinômio de até terceiro grau.
+
+traduzimos os tipos de resistencia dos apoios e as orientações das grandezas em uma matriz
+e juntamos tudo em uma matriz geral com apoios, cargas e grandezas, a fim de resolver o sistema linear
+característico do problema.
+
+    Nessa matriz geral, verificamos se temos apenas os coeficientes "importantes" para que o sistema possua
+solução. EM seguid invertemos a matriz e multiplicamos a inversa pelas variáveis do problema, resolvendo o sistema.
+Por fim tratamos os resultados finais para o output e a criação dos gráficos importantes.

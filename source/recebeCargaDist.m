@@ -1,9 +1,17 @@
 source cargaDistribuida.m
 
-function retval = recebeCargaDist(cargaDist)
-  numDecargaDist = input("Quantos cargas distribuídas teremos? \n");
-  
-  for i = 1: numDecargaDist
+#Recebe cargas distribuídas dadas pelo usuário
+#@param cargaDist - Vetor de cargas já existentes
+#@return Vetor com as novas cargas
+function retval = recebeCargaDist()
+  numDeCargaDist = input("Quantos cargas distribuídas teremos? \n");
+
+  if(numDeCargaDist == 0)
+    retval = [];
+    return
+  endif
+
+  for i = 1: numDeCargaDist
     x = input("Qual a posição x do início da carga?")
     comprimento = input("Qual o comprimento da carga distribuída?: ");
 
