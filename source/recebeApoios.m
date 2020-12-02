@@ -8,10 +8,12 @@ function retval = recebeApoios()
   
   for i = 1: numDeApoios
     
-    apoios(i).tipo = input("Qual o tipo do apoio (1 = móvel/rolete, 2 = fixo/pino, 3 = engastado)?: ");
-    apoios(i).theta = input("qual a orientação do apoio?: ");
-    apoios(i).x = input("Qual a posição x?: ");
-    apoios(i).y = input("Qual a posição y?: ");
+    tipo = input("Qual o tipo do apoio (1 = movel/rolete, 2 = fixo/pino, 3 = engastado)?: ");
+    x = input("Qual a posiçao x?: ");
+    y = input("Qual a posicao y?: ");
+
+    apoios(i) = novoApoio(x,y,tipo);
+    apoios(i).theta = input("qual a orientacao do apoio?: ");
   endfor
   retval = apoios;
 endfunction

@@ -25,6 +25,9 @@ function retorno = clearCalculado(sistema)
 
     sistema.calculado = false;
 
+    sistema.A = [];
+    sistema.b = [0;0;0;0;0;0];
+
     retorno = sistema;
 endfunction
 
@@ -35,7 +38,7 @@ endfunction
 function retorno = recebeVariavel(sistema, novaVariavel)
     sistema = clearCalculado(sistema);
 
-    sistema.var(rows(sistema.var)+1) = novaVariavel;
+    sistema.var(columns(sistema.var)+1) = novaVariavel;
 
     retorno = sistema;
 
@@ -59,7 +62,7 @@ function retorno = recebeCargaDist(sistema, carga)
     
     sistema.carga(columns(sistema.carga)+1) = carga;
 
-    grandeza = transformaCargaEmGrandeza(carga)
+    grandeza = transformaCargaEmGrandeza(carga);
 
     sistema.grandeza(columns(sistema.grandeza)+1) = grandeza;
 
@@ -70,6 +73,14 @@ endfunction
 #@param - O sistema a ser resolvido
 #@return O sistema resolvido, caso seja possível (verificar atributo calculado)
 function retorno = solve(sistema)
+    for i = 1:columns(sistema.var)
+        sistema.var(i) = calculaCoeficienteMomento(sistema.var(i), sistema.x,sistema.y,sistema.z);
+    endfor
+
+    for i = 1:columns(sistema.grandeza)
+        sistema.grandeza(i) = calculaCoeficienteMomento(sistema.grandeza(i), sistema.x,sistema.y,sistema.z);
+    endfor 
+
     sistema = clearCalculado(sistema);
     
     for i = 1: columns(sistema.var)
@@ -115,12 +126,10 @@ function retorno = solve(sistema)
 
     indiceVar = 1:columns(sistema.var);
 
-    disp(A)
-
     #Remove colunas apenas com 0
-    for j = 1:columns(A)
+    for j = columns(A):-1:1
         zero = true;
-        for i = 1:rows(A)
+        for i = rows(A):-1:1
             if(A(i,j) != 0)
                 zero = false;
                 break
@@ -137,7 +146,11 @@ function retorno = solve(sistema)
     endfor
 
     try
-        result = inv(A) * b;
+        #sistema.teste1 = A;
+        #sistema.teste2 = b;
+        #retorno = sistema;
+        #return
+        result = inv(A) * b';
     catch err
         retorno = sistema;
         disp("ERRO: Sistema não pode ser resolvido");
@@ -145,7 +158,7 @@ function retorno = solve(sistema)
         return
     end_try_catch
 
-    for i = 1:columns(result)
+    for i = 1:rows(result)
         sistema.var(indiceVar(i)) = setValor(sistema.var(indiceVar(i)), result(i));
 
     endfor
