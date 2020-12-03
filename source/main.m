@@ -3,6 +3,7 @@ source sistemaLinear.m
 source recebeApoios.m
 source recebeCargaDist.m
 source esforcoInterno.m
+source singularidade.m
 
 clear
 clc
@@ -15,11 +16,23 @@ grandezas = [];
 
 disp("Esse programa utiliza um sistema de coordenados orientado com a mao direita");
 disp("Sendo que x eh o eixo horizontal, crescente para a direita. Y eh orientado para cima");
+disp("Todas as unidades estao de acordo com o SI");
+disp("Para calcular o angulo de torcao, qualquer viga sera considerada cilindrica");
 disp("");
 disp("");
 
 xInicio = input("Qual o ponto de inicio da viga no eixo x?");
 xFim = input("Qual o ponto de fim da viga no eixo x?");
+
+areaSecao = input("Qual a area da secao transversal da viga?");
+
+momentoX = input("Qual o momento de inercia da area em x?");
+momentoy = input("Qual o momento de inercia da area em y?");
+
+moduloElastico = input("Qual o modulo elastico da viga?");
+moduloCisalhamento = input("Qual o modulo de cisalhamento da viga?");
+
+momentoInerciaPolar = momentoX + momentoY;
 
 grandezas = recebeGrandezas();
 apoios = recebeApoios();
@@ -50,6 +63,8 @@ disp("");
 disp("");
 disp("");
 
+variavelCalculada = []
+
 if(sistema.calculado == false)
     disp("Seu sistema nao pode ser resolvido");
 else
@@ -65,6 +80,8 @@ else
             continue;
         endif
 
+        variavelCalculada = [variavelCalculada, sistema.var(i)]
+
         disp("A variavel "); 
         disp(sistema.var(i).nome);
         disp("possui magnitude ");
@@ -78,3 +95,22 @@ disp("");
 disp("");
 
 analiseDeIntervalos(sistema, xInicio, xFim);
+
+singularidade = [];
+
+for i = 1:columns(grandezas)
+
+    singularidade = [singularidade, converteGrandezaParaSingularidade(grandezas(i))];
+
+endfor
+
+for i = 1:columns(variavelCalculada)
+    singularidade = [singularidade, converteVariavelParaSingularidade(variavelCalculada(i))];
+endfor
+
+for i = 1:columns(cargas)
+    singularidade = [singularidade, converteCargaParaSingularidade(cargas(i))];
+endfor
+
+calculaAlongamento(singularidade, areaSecao, moduloElastico, xFim);
+calculaTorcao(singularidade, momentoInerciaPolar, moduloCisalhamento, xFim);
