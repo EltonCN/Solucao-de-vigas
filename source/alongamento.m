@@ -7,15 +7,15 @@ function calculaAlongamento(singularidades, areaSecao, moduloElastico, maxX)
     forcaNormal = [];
     alongamento = [];
 
-    indice = 1
+    indice = 1;
 
     for i =1:columns(singularidades)
 
-        if (singularidade(i).grau == -1)
+        if (singularidades(i).grau == -1)
 
-            if (singularidade(i).magnitude[1] != 0)
+            if (singularidades(i).magnitude(1) != 0)
 
-                forcaExterna = singularidade(i);
+                forcaExterna = singularidades(i);
 
                 forcaInterna = integraSingularidade(forcaExterna);
 
@@ -35,14 +35,14 @@ function calculaAlongamento(singularidades, areaSecao, moduloElastico, maxX)
 
     endfor
 
-    passo = maxX/10000;
+    passo = maxX/500;
     
     xAtual = 0;
 
     x = [];
     y = [];
 
-    for i=1:10000
+    for i=1:500
         x(i) = xAtual;
 
         y(i) = 0;

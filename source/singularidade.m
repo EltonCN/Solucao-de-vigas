@@ -18,22 +18,30 @@ function valor = avaliaSingularidade(singularidade, x)
     
     valor = 0;
 
+    magnitude = 0;
+
+    for i = 1:6
+
+        magnitude += singularidade.magnitude(i);
+
+    endfor
+
     if(singularidade.grau == 1)
 
         if(singularidade.x  >= x)
-            valor += (x-singularidade.x)*singularidade.magnitude;
+            valor += (x-singularidade.x)*magnitude;
         endif
 
     elseif(singularidade.grau == 0)
 
         if(singularidade.x >= x)
-            valor += singularidade.magnitude;
+            valor += magnitude;
         endif
 
     elseif(singularidade.grau == -1)
 
         if(singularidade.x == x)
-            valor += singularidade.magnitude;
+            valor += magnitude;
         endif
 
     elseif(singularidade.grau == -2)
@@ -44,7 +52,7 @@ function valor = avaliaSingularidade(singularidade, x)
 
     elseif(singularidade.grau == 2)
        if(singularidade.x  >= x)
-            valor += ((x-singularidade.x)^2)*singularidade.magnitude;
+            valor += ((x-singularidade.x)^2)*magnitude;
         endif 
 
     endif
@@ -60,28 +68,37 @@ function soma = somaSingularidade(singularidade1, singularidade2)
     soma = singularidade1
 
     for i = 1:6
-        soma.magnitude[i] += singularidade2.magnitude[i]
+        soma.magnitude(i) += singularidade2.magnitude(i)
     endfor
+endfunction
 
-function sigularidade = converteGrandezaParaSingularidade(grandeza)
+function singularidade = converteGrandezaParaSingularidade(grandeza)
+
+
     singularidade = novaFuncaoSingularidade();
     
 
     if(grandeza.tipo == true) #É momento
         for i = 1:3
-            if grandeza.coeficiente[i+3] != 0
-                singularidade.magnitude[i+3] = grandeza.magnitude;
+            if grandeza.coeficiente(i+3) != 0
+                singularidade.magnitude(i+3) = grandeza.magnitude;
 
             endif
 
         endfor
 
-        singularidade.grau = -2;
+        if (grandeza.coeficiente(4) != 0)
+            singularidade.grau = 0;
+        else
+            singularidade.grau = -2;
+        endif
+
+        
 
     else #É força
         for i = 1:3
-            if grandeza.coeficiente[i] != 0
-                singularidade.magnitude[i] = grandeza.magnitude;
+            if grandeza.coeficiente(i) != 0
+                singularidade.magnitude(i) = grandeza.magnitude;
 
             endif
 
@@ -98,10 +115,12 @@ function sigularidade = converteGrandezaParaSingularidade(grandeza)
 endfunction
 
 
-function singularidade = converteVariavelParaSingularidade(variavel)
+function sing = converteVariavelParaSingularidade(variavel)
 
-    singularidade = converteGrandezaParaSingularidade(transformaEmGrandeza(variavel))
+    a = transformaEmGrandeza(variavel);
 
+
+    sing = converteGrandezaParaSingularidade(a);
 endfunction
 
 function singularidade = converteCargaParaSingularidade(carga)
@@ -119,7 +138,7 @@ function integrada = integraSingularidade(singularidade)
 
         for i = 1:6
 
-            integrada.magnitude[i] /= 2;
+            integrada.magnitude(i) /= 2;
 
         endfor
 

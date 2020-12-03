@@ -4,6 +4,10 @@ source recebeApoios.m
 source recebeCargaDist.m
 source esforcoInterno.m
 source singularidade.m
+source alongamento.m
+source torcao.m
+source inclinacao.m
+source grandeza.m
 
 clear
 clc
@@ -17,8 +21,9 @@ grandezas = [];
 disp("Esse programa utiliza um sistema de coordenados orientado com a mao direita");
 disp("Sendo que x eh o eixo horizontal, crescente para a direita. Y eh orientado para cima");
 disp("Todas as unidades estao de acordo com o SI");
+disp("A viga sempre deve estar paralela ao eixo X");
 disp("Para calcular o angulo de torcao, qualquer viga sera considerada cilindrica");
-disp("");
+disp("Viga deve estar na horizontal (eixo x)");
 disp("");
 
 xInicio = input("Qual o ponto de inicio da viga no eixo x?");
@@ -27,7 +32,7 @@ xFim = input("Qual o ponto de fim da viga no eixo x?");
 areaSecao = input("Qual a area da secao transversal da viga?");
 
 momentoX = input("Qual o momento de inercia da area em x?");
-momentoy = input("Qual o momento de inercia da area em y?");
+momentoY = input("Qual o momento de inercia da area em y?");
 
 moduloElastico = input("Qual o modulo elastico da viga?");
 moduloCisalhamento = input("Qual o modulo de cisalhamento da viga?");
@@ -63,7 +68,7 @@ disp("");
 disp("");
 disp("");
 
-variavelCalculada = []
+variavelCalculada = [];
 
 if(sistema.calculado == false)
     disp("Seu sistema nao pode ser resolvido");
@@ -80,7 +85,7 @@ else
             continue;
         endif
 
-        variavelCalculada = [variavelCalculada, sistema.var(i)]
+        variavelCalculada = [variavelCalculada, sistema.var(i)];
 
         disp("A variavel "); 
         disp(sistema.var(i).nome);

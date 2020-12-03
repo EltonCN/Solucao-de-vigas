@@ -13,7 +13,6 @@ endfunction
 
 #Converte a variável para uma grandeza
 function grandeza = transformaEmGrandeza(var)
-
     grandeza = novaGrandeza(var.x,var.y);
 
     grandeza.coeficiente = var.coeficiente;

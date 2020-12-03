@@ -33,6 +33,9 @@ function retval = recebeGrandezas()
 
     
     grandezas(i).coeficiente(eixo) = 1;
+
+    disp("")
+    disp("")
   endfor
   
   retval = grandezas;
