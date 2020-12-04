@@ -99,7 +99,7 @@ disp("");
 disp("");
 disp("");
 
-analiseDeIntervalos(sistema, xInicio, xFim);
+#analiseDeIntervalos(sistema, xInicio, xFim);
 
 singularidade = [];
 
@@ -117,5 +117,6 @@ for i = 1:columns(cargas)
     singularidade = [singularidade, converteCargaParaSingularidade(cargas(i))];
 endfor
 
+calculaInclinacao(singularidade, moduloElastico, momentoX, xFim);
 calculaAlongamento(singularidade, areaSecao, moduloElastico, xFim);
 calculaTorcao(singularidade, momentoInerciaPolar, moduloCisalhamento, xFim);

@@ -12,13 +12,10 @@ function calculaTorcao(singularidade, momentoInerciaPolar, moduloCisalhamento, m
 
     indice = 1;
 
-    disp("Recebi essas singularidades")
-
-    xApoio = 0
+    xApoio = 0;
 
     #ver se n da pra usar um for i=1:columns(singularidade)
     for i=1:columns(singularidade)
-        singularidade(i)
         # analiso quais singularidades são torque e faço a somatoria da integral dessas
         if singularidade(i).magnitude(4) != 0
             #append no vetor (checar documentação)
@@ -54,18 +51,20 @@ function calculaTorcao(singularidade, momentoInerciaPolar, moduloCisalhamento, m
         x(i) = xAtual;
         y(i) = 0;
         
-        for j = 1:columns(singularidadeIntegrada)
-        
-            y(i) += avaliaSingularidade(singularidadeIntegrada(j), xAtual);
+        if(isempty(singularidadeIntegrada) == false)
+            for j = 1:columns(singularidadeIntegrada)
+            
+                y(i) += avaliaSingularidade(singularidadeIntegrada(j), xAtual);
 
-            y(i) -= avaliaSingularidade(singularidadeIntegrada(j), xApoio);
+                y(i) -= avaliaSingularidade(singularidadeIntegrada(j), xApoio);
 
-        endfor
+            endfor
+        endif
 
         xAtual += passo;
     endfor
 
-    figure (5);
+    figure (6);
     plot(x,y);
     title("Plot do angulo de torcao");
     xlabel("m");

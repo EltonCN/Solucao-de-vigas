@@ -1,13 +1,14 @@
 source singularidade.m
 
 function calculaAlongamento(singularidades, areaSecao, moduloElastico, maxX)
-
     #Calula a forca normal
 
     forcaNormal = [];
     alongamento = [];
 
     indice = 1;
+
+    xApoio = 0;
 
     for i =1:columns(singularidades)
 
@@ -19,8 +20,8 @@ function calculaAlongamento(singularidades, areaSecao, moduloElastico, maxX)
 
                 forcaInterna = integraSingularidade(forcaExterna);
 
-                forcaNormal = [forcaNormal, somaSingularidade(forcaNormal, forcaInterna)];
-                alongamento = [alongamento, integraSingularidade(forcaNormal(i))]
+                forcaNormal = [forcaNormal, forcaInterna];
+                alongamento = [alongamento, integraSingularidade(forcaNormal(i))];
 
                 for j = 1:6
 
@@ -28,7 +29,13 @@ function calculaAlongamento(singularidades, areaSecao, moduloElastico, maxX)
 
                 endfor
 
-                indice += 1
+                if (strcmp(singularidades(i).nome,"fixo horizontal") == 1) 
+                    xApoio = singularidades(i).x;
+                elseif(strcmp(singularidades(i).nome,"engastado horizontal") == 1)
+                    xApoio = singularidades(i).x;
+                endif
+
+                indice += 1;
 
             endif
         endif
@@ -47,14 +54,22 @@ function calculaAlongamento(singularidades, areaSecao, moduloElastico, maxX)
 
         y(i) = 0;
 
-        for j =1:columns(alongamento)
-            y(i) += avaliaSingularidade(alongamento(j), xAtual);
-        endfor
+
+        if(isempty(alongamento) == false)
+
+            for j =1:columns(alongamento)
+                y(i) += avaliaSingularidade(alongamento(j), xAtual);
+                y(i) -= avaliaSingularidade(alongamento(j), xApoio);
+            endfor
+
+        endif
+
         
+
         xAtual += passo;
     endfor
 
-    figure (3);
+    figure (5);
     plot(x,y);
     title("Plot do alongamento");
     xlabel("m");

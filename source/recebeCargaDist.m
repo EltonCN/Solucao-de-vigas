@@ -23,4 +23,5 @@ function retval = recebeCargaDistUsuario()
     disp(cargaDist(i).polinomio);
   endfor
   retval = cargaDist;
+
 endfunction
