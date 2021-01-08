@@ -133,6 +133,18 @@ function singularidade = converteCargaParaSingularidade(carga)
 
 endfunction
 
+function singularidade = divideMagnitude(sing, divisor)
+
+    singularidade = sing;
+
+    for i = 1:6
+
+            singularidade.magnitude(i) /= divisor;
+
+    endfor
+
+endfor
+
 function integrada = integraSingularidade(singularidade)
 
     integrada = singularidade;

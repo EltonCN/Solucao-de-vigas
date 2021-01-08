@@ -8,6 +8,8 @@ source alongamento.m
 source torcao.m
 source inclinacao.m
 source grandeza.m
+source tensao.m
+source plotaSingularidade.m
 
 clear
 clc
@@ -30,6 +32,8 @@ xInicio = input("Qual o ponto de inicio da viga no eixo x?");
 xFim = input("Qual o ponto de fim da viga no eixo x?");
 
 areaSecao = input("Qual a area da secao transversal da viga?");
+raioExterno = input("Qual o raio externo da viga?");
+raioInterno = input("Qual o raio interno da viga (0 se a viga nao for vazada)?");
 
 momentoX = input("Qual o momento de inercia da area em x?");
 momentoY = input("Qual o momento de inercia da area em y?");
@@ -117,6 +121,12 @@ for i = 1:columns(cargas)
     singularidade = [singularidade, converteCargaParaSingularidade(cargas(i))];
 endfor
 
-calculaInclinacao(singularidade, moduloElastico, momentoX, xFim);
-calculaAlongamento(singularidade, areaSecao, moduloElastico, xFim);
+forcaCortante = calculaInclinacao(singularidade, moduloElastico, momentoX, xFim);
+forcaNormal = calculaAlongamento(singularidade, areaSecao, moduloElastico, xFim);
 calculaTorcao(singularidade, momentoInerciaPolar, moduloCisalhamento, xFim);
+
+tensaoNormal = calculaTensaoNormal(forcaNormal, areaSecao);
+tensaoCisalhamento = calculaTensaoCisalhamento(forcaCortante, areaSecao, raioExterno, raioInterno);
+
+plotaSingularidade(tensaoNormal, xFim, "Tensao normal", "Pa", 7);
+plotaSingularidade(tensaoCisalhamento, xFim, "Tensao cisalhamento", "Pa", 8);

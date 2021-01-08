@@ -1,6 +1,6 @@
 source singularidade.m
 
-function calculaAlongamento(singularidades, areaSecao, moduloElastico, maxX)
+function forcaNormal = calculaAlongamento(singularidades, areaSecao, moduloElastico, maxX)
     #Calula a forca normal
 
     forcaNormal = [];

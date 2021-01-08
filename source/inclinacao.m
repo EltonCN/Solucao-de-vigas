@@ -1,6 +1,6 @@
 source singularidade.m ##checar dps
 
-function singularidadeIntegrada = calculaInclinacao(singularidade, moduloElastico, momentoDeInerciaDeArea, maxX)
+function cortante = calculaInclinacao(singularidade, moduloElastico, momentoDeInerciaDeArea, maxX)
 
 #momentoX = novaSingularidade
 
