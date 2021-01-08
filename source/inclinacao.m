@@ -28,7 +28,7 @@ function cortante = calculaInclinacao(singularidade, moduloElastico, momentoDeIn
 
             m = integraSingularidade(v);
 
-            momento = [momento, m];
+            momento = [momento, m]; #momento interno da viga
 
             theta = integraSingularidade(m);
 
@@ -134,3 +134,4 @@ function cortante = calculaInclinacao(singularidade, moduloElastico, momentoDeIn
 
 
 endfunction
+

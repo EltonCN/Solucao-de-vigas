@@ -37,9 +37,12 @@ raioInterno = input("Qual o raio interno da viga (0 se a viga nao for vazada)?")
 
 momentoX = input("Qual o momento de inercia da area em x?");
 momentoY = input("Qual o momento de inercia da area em y?");
+momentoInercia = input("Qual o momento de inercia?");
+
 
 moduloElastico = input("Qual o modulo elastico da viga?");
 moduloCisalhamento = input("Qual o modulo de cisalhamento da viga?");
+
 
 momentoInerciaPolar = momentoX + momentoY;
 
@@ -126,8 +129,29 @@ forcaCortante = calculaInclinacao(singularidade, moduloElastico, momentoX, xFim)
 forcaNormal = calculaAlongamento(singularidade, areaSecao, moduloElastico, xFim);
 calculaTorcao(singularidade, momentoInerciaPolar, moduloCisalhamento, xFim);
 
-tensaoNormal = calculaTensaoNormal(forcaNormal, areaSecao);
-tensaoCisalhamento = calculaTensaoCisalhamento(forcaCortante, areaSecao, raioExterno, raioInterno);
+tensaoNormal = calculaTensaoNormal(forcaNormal, areaSecao); #sempre igual
+tensaoCisalhamento = calculaTensaoCisalhamento(forcaCortante, areaSecao, raioExterno, raioInterno); #maxima 
+momento = calculaMomentoInterno(forcaCortante);
+tensaoNormalFlexao = calculaTensaoNormalFlexao(momento, momentoInercia, raioExterno); #y maximo positivo
+tensaoCisalhamentoTorque = calculaTensaoCisalhamentoTorque(singularidade, raioExterno, momentoInerciaPolar) #Positiva
 
 plotaSingularidade(tensaoNormal, xFim, "Tensao normal", "Pa", 7);
-plotaSingularidade(tensaoCisalhamento, xFim, "Tensao cisalhamento", "Pa", 8);
+plotaSingularidade(tensaoNormalFlexao, xFim, "Tensao normal de flexao", "Pa", 8);
+plotaSingularidade(tensaoCisalhamento, xFim, "Tensao de cisalhamento", "Pa", 9);
+plotaSingularidade(tensaoCisalhamentoTorque, xFim, "Tensao de cisalhamento por torque", "Pa", 10);
+
+[tensaoNormalResultanteA, tensaoCisalhamentoResultanteA] = calculaTensaoResultante(tensaoNormal, tensaoCisalhamento, tensaoNormalFlexao, tensaoCisalhamentoTorque, 0);
+[tensaoNormalResultanteB, tensaoCisalhamentoResultanteB] = calculaTensaoResultante(tensaoNormal, tensaoCisalhamento, tensaoNormalFlexao, tensaoCisalhamentoTorque, 1);
+[tensaoNormalResultanteC, tensaoCisalhamentoResultanteC] = calculaTensaoResultante(tensaoNormal, tensaoCisalhamento, tensaoNormalFlexao, tensaoCisalhamentoTorque, 2);
+[tensaoNormalResultanteD, tensaoCisalhamentoResultanteD] = calculaTensaoResultante(tensaoNormal, tensaoCisalhamento, tensaoNormalFlexao, tensaoCisalhamentoTorque, 3);
+
+
+plotaTensaoPrincipal(tensaoNormalResultanteA, tensaoCisalhamentoResultanteA,  xFim, "Tensao principal no ponto A", "Pa", 11);
+plotaTensaoPrincipal(tensaoNormalResultanteB, tensaoCisalhamentoResultanteB,  xFim, "Tensao principal no ponto B", "Pa", 12);
+plotaTensaoPrincipal(tensaoNormalResultanteC, tensaoCisalhamentoResultanteC,  xFim, "Tensao principal no ponto C", "Pa", 13);
+plotaTensaoPrincipal(tensaoNormalResultanteD, tensaoCisalhamentoResultanteD,  xFim, "Tensao principal no ponto D", "Pa", 14);
+
+plotaCriterioTresca(tensaoNormalResultanteA, tensaoCisalhamentoResultanteA,  xFim, "Criterio de Tresca no ponto A", "Pa", 15);
+plotaCriterioTresca(tensaoNormalResultanteB, tensaoCisalhamentoResultanteB,  xFim, "Criterio de Tresca no ponto B", "Pa", 16);
+plotaCriterioTresca(tensaoNormalResultanteC, tensaoCisalhamentoResultanteC,  xFim, "Criterio de Tresca no ponto C", "Pa", 17);
+plotaCriterioTresca(tensaoNormalResultanteD, tensaoCisalhamentoResultanteD,  xFim, "Criterio de Tresca no ponto D", "Pa", 18);
