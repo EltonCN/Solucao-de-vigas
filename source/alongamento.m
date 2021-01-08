@@ -1,6 +1,6 @@
 source singularidade.m
 
-function forcaNormal = calculaAlongamento(singularidades, areaSecao, moduloElastico, maxX)
+function calculaAlongamento(singularidades, areaSecao, moduloElastico, maxX)
 
     #Calula a forca normal
 
@@ -8,6 +8,8 @@ function forcaNormal = calculaAlongamento(singularidades, areaSecao, moduloElast
     alongamento = [];
 
     indice = 1;
+
+    xApoio = 0;
 
     for i =1:columns(singularidades)
 
@@ -19,8 +21,8 @@ function forcaNormal = calculaAlongamento(singularidades, areaSecao, moduloElast
 
                 forcaInterna = integraSingularidade(forcaExterna);
 
-                forcaNormal = [forcaNormal, somaSingularidade(forcaNormal, forcaInterna)];
-                alongamento = [alongamento, integraSingularidade(forcaNormal(i))]
+                forcaNormal = [forcaNormal, forcaInterna];
+                alongamento = [alongamento, integraSingularidade(forcaNormal(i))];
 
                 for j = 1:6
 
@@ -28,7 +30,13 @@ function forcaNormal = calculaAlongamento(singularidades, areaSecao, moduloElast
 
                 endfor
 
-                indice += 1
+                if (strcmp(singularidades(i).nome,"fixo horizontal") == 1) 
+                    xApoio = singularidades(i).x;
+                elseif(strcmp(singularidades(i).nome,"engastado horizontal") == 1)
+                    xApoio = singularidades(i).x;
+                endif
+
+                indice += 1;
 
             endif
         endif
@@ -47,14 +55,22 @@ function forcaNormal = calculaAlongamento(singularidades, areaSecao, moduloElast
 
         y(i) = 0;
 
-        for j =1:columns(alongamento)
-            y(i) += avaliaSingularidade(alongamento(j), xAtual);
-        endfor
+
+        if(isempty(alongamento) == false)
+
+            for j =1:columns(alongamento)
+                y(i) += avaliaSingularidade(alongamento(j), xAtual);
+                y(i) -= avaliaSingularidade(alongamento(j), xApoio);
+            endfor
+
+        endif
+
         
+
         xAtual += passo;
     endfor
 
-    figure (3);
+    figure (5);
     plot(x,y);
     title("Plot do alongamento");
     xlabel("m");

@@ -99,7 +99,7 @@ disp("");
 disp("");
 disp("");
 
-analiseDeIntervalos(sistema, xInicio, xFim);
+#analiseDeIntervalos(sistema, xInicio, xFim);
 
 singularidade = [];
 
@@ -117,17 +117,7 @@ for i = 1:columns(cargas)
     singularidade = [singularidade, converteCargaParaSingularidade(cargas(i))];
 endfor
 
-forcaNormal = calculaAlongamento(singularidade, areaSecao, moduloElastico, xFim);
+calculaInclinacao(singularidade, moduloElastico, momentoX, xFim);
+calculaAlongamento(singularidade, areaSecao, moduloElastico, xFim);
 calculaTorcao(singularidade, momentoInerciaPolar, moduloCisalhamento, xFim);
 
-tensaoNormal = [];
-
-for j = 1:columns(forcaNormal)
-
-    tensaoNormal = [tensaoNormal, somaSingularidade(forcaNormal, tensaoNormal)];
-
-    for j = 1:6
-        tensaoNormal[j].magnitude[i] /= areaSecao;
-    endfor
-
-endfor

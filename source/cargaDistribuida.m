@@ -9,7 +9,7 @@ function novaCarga = novaCarga(x, comprimento)
     novaCarga = novaGrandeza(0,0);
 
     novaCarga.comprimento = comprimento;
-    novaCarga.polinomio = [0,0,0,0];
+    novaCarga.polinomio = [0,0,0,0]; #[c,x,x2,x3]
     novaCarga.inicio = x;
     novaCarga.fim = x+comprimento;
     novaCarga.coeficiente(2) = 1;
@@ -27,6 +27,7 @@ function grandeza = transformaCargaEmGrandeza(carga)
     grandeza.nome = carga.nome;
     grandeza.tipo = carga.tipo;
     grandeza.z = carga.z;
+    grandeza.x = carga.x
 
 endfunction
 
@@ -63,5 +64,8 @@ function retval = cargaParaPonto(cargaDist)
     cargaDist.x = q2/q1;
     cargaDist.magnitude = q1;
 
+    cargaDist.coeficiente = [0, 1, 0, 0, 0, 0];
+
     retval = cargaDist;
+    
 endfunction

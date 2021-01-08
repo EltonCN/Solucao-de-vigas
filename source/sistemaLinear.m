@@ -150,6 +150,8 @@ function retorno = solve(sistema)
         #sistema.teste2 = b;
         #retorno = sistema;
         #return
+        
+
         result = inv(A) * b';
     catch err
         retorno = sistema;
@@ -160,6 +162,13 @@ function retorno = solve(sistema)
 
     for i = 1:rows(result)
         sistema.var(indiceVar(i)) = setValor(sistema.var(indiceVar(i)), result(i));
+
+        #{
+        if(strcmp(sistema.var(indiceVar(i)).nome,"engastado Momento") == 1)
+            sistema.var(indiceVar(i)).magnitude*=-1
+
+        endif
+        #}
 
     endfor
 

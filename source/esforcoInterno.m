@@ -24,6 +24,7 @@ function resolvido = esforcoInterno(sistema, inicioIntervalo, fimIntervalo)
     ordenado = bubblesort(sistema);
     encontrouCargaDistribuida = false;
 
+    #{
     for i = 1:columns(sistema.carga)
         
         if(sistema.carga(i).inicio >= inicioIntervalo && sistema.carga(i).fim <= fimIntervalo)
@@ -32,12 +33,12 @@ function resolvido = esforcoInterno(sistema, inicioIntervalo, fimIntervalo)
 
             ######### Calculo da força cortante #########
             polinomio1 = integraPol(sistema.carga(i).polinomio, inicioIntervalo);
-            polinomio1(columns(polinomio)) = polinomio1(columns(polinomio)) + resposta.var(2).magnitude;     #Força cortante agora polinomial
+            polinomio1(columns(sistema.carga(i).polinomio)) = polinomio1(columns(sistema.carga(i).polinomio)) + resposta.var(2).magnitude;     #Força cortante agora polinomial
             
 
             ######### Calculo do momento interno #########
             polinomio2 = integraPol(deslocaPolinomio(sistema.carga(i).polinomio), inicioIntervalo);
-            polinomio2(columns(polinomio)) = polinomio2(columns(polinomio)) + resposta.var(3).magnitude;     #Momento interno agora polinomial
+            polinomio2(columns(sistema.carga(i).polinomio)) = polinomio2(columns(sistema.carga(i).polinomio)) + resposta.var(3).magnitude;     #Momento interno agora polinomial
 
 
             resolvido(1) = polinomio1;  #Força cortante
@@ -62,6 +63,7 @@ function resolvido = esforcoInterno(sistema, inicioIntervalo, fimIntervalo)
             return
         endif
     endfor
+    #}
 
     if (encontrouCargaDistribuida == false)
 
