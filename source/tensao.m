@@ -15,7 +15,7 @@ function tensaoCisalhamento = calculaTensaoCisalhamento(forcaCortante, areaSecao
     coeficiente = 1.0/coeficiente;
 
     for j =1:columns(forcaCortante)
-        tensaoCisalhamento = [tensaoCisalhamento, divideMagnitude(forcaNormal(i), coeficiente)];
+        tensaoCisalhamento = [tensaoCisalhamento, divideMagnitude(forcaCortante(j), coeficiente)];
     endfor
 
 endfunction
@@ -25,7 +25,7 @@ function tensaoNormal = calculaTensaoNormal(forcaNormal, areaSecao)
     tensaoNormal = [];
 
     for j = 1:columns(forcaNormal)
-        tensaoNormal = [tensaoNormal, divideMagnitude(forcaNormal(i), areaSecao)];
+        tensaoNormal = [tensaoNormal, divideMagnitude(forcaNormal(j), areaSecao)];
     endfor
 
 

@@ -143,7 +143,7 @@ function singularidade = divideMagnitude(sing, divisor)
 
     endfor
 
-endfor
+endfunction
 
 function integrada = integraSingularidade(singularidade)
 

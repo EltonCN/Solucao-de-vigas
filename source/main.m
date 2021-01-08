@@ -121,12 +121,7 @@ for i = 1:columns(cargas)
     singularidade = [singularidade, converteCargaParaSingularidade(cargas(i))];
 endfor
 
-<<<<<<< HEAD
-calculaInclinacao(singularidade, moduloElastico, momentoX, xFim);
-calculaAlongamento(singularidade, areaSecao, moduloElastico, xFim);
-calculaTorcao(singularidade, momentoInerciaPolar, moduloCisalhamento, xFim);
 
-=======
 forcaCortante = calculaInclinacao(singularidade, moduloElastico, momentoX, xFim);
 forcaNormal = calculaAlongamento(singularidade, areaSecao, moduloElastico, xFim);
 calculaTorcao(singularidade, momentoInerciaPolar, moduloCisalhamento, xFim);
@@ -136,4 +131,3 @@ tensaoCisalhamento = calculaTensaoCisalhamento(forcaCortante, areaSecao, raioExt
 
 plotaSingularidade(tensaoNormal, xFim, "Tensao normal", "Pa", 7);
 plotaSingularidade(tensaoCisalhamento, xFim, "Tensao cisalhamento", "Pa", 8);
->>>>>>> 33c2c6cb5c6a78f902b7ff889bb721dcb5e410b2

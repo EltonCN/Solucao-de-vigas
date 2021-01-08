@@ -13,10 +13,10 @@ function plotaSingularidade(singularidade, maxX, nomePlot, eixoY, nPlot)
         x(i) = xAtual;
         y(i) = 0;
 
-        if(isempty(inclinacao) == true)
+        if(isempty(singularidade) == true)
         else
 
-            for j = 1:columns(inclinacao)
+            for j = 1:columns(singularidade)
 
                 y(i) += avaliaSingularidade(singularidade(j), xAtual);
             
