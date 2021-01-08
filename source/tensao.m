@@ -198,3 +198,56 @@ function plotaTensaoPrincipal(tensaoCisalhamentoResultante, tensaoNormalResultan
     ylabel(eixoY);
 
 endfunction
+
+function plotaCriterioTresca(sy, tensaoCisalhamentoResultante, tensaoNormalResultante, maxX, nomePlot, eixoY, nPlot)
+    passo = maxX/500;
+    
+    xAtual = 0;
+
+    x = [];
+    y = [];
+
+    for i=1:500
+        x(i) = xAtual;
+        [sigmaMax, sigmaMin] = avaliaTensaoPrincipal(tensaoCisalhamentoResultante, tensaoNormalResultante, xAtual);
+        y(i) = sy/(sigmaMax-sigmaMin);
+
+        xAtual += passo;
+    endfor
+
+    figure (nPlot);
+    plot(x,y);
+    title(nomePlot);
+    xlabel("m");
+    ylabel(eixoY);
+
+endfunction
+
+function plotaCriterioVonMises(sy, tensaoCisalhamentoResultante, tensaoNormalResultante, maxX, nomePlot, eixoY, nPlot)
+    passo = maxX/500;
+    
+    xAtual = 0;
+
+    x = [];
+    y = [];
+
+    for i=1:500
+        x(i) = xAtual;
+        [sigmaMax, sigmaMin] = avaliaTensaoPrincipal(tensaoCisalhamentoResultante, tensaoNormalResultante, xAtual);
+
+        sigmaMed = (sigmaMax + sigmaMin)/2.0
+
+        sigmaLinha = sqrt( ( ((sigmaMax-sigmaMin)^2)   +((sigmaMin-sigmaMed)^2)+((sigmaMed-sigmaMax)^2)  )/2.0);
+
+        y(i) = sy/sigmaLinha;
+
+        xAtual += passo;
+    endfor
+
+    figure (nPlot);
+    plot(x,y);
+    title(nomePlot);
+    xlabel("m");
+    ylabel(eixoY);
+
+endfunction

@@ -2,7 +2,7 @@ source recebeGrandezas.m
 source sistemaLinear.m
 source recebeApoios.m
 source recebeCargaDist.m
-source esforcoInterno.m
+
 source singularidade.m
 source alongamento.m
 source torcao.m
@@ -42,6 +42,7 @@ momentoInercia = input("Qual o momento de inercia?");
 
 moduloElastico = input("Qual o modulo elastico da viga?");
 moduloCisalhamento = input("Qual o modulo de cisalhamento da viga?");
+sy = input("Qual o valor Sy do material?");
 
 
 momentoInerciaPolar = momentoX + momentoY;
@@ -146,12 +147,17 @@ plotaSingularidade(tensaoCisalhamentoTorque, xFim, "Tensao de cisalhamento por t
 [tensaoNormalResultanteD, tensaoCisalhamentoResultanteD] = calculaTensaoResultante(tensaoNormal, tensaoCisalhamento, tensaoNormalFlexao, tensaoCisalhamentoTorque, 3);
 
 
-plotaTensaoPrincipal(tensaoNormalResultanteA, tensaoCisalhamentoResultanteA,  xFim, "Tensao principal no ponto A", "Pa", 11);
-plotaTensaoPrincipal(tensaoNormalResultanteB, tensaoCisalhamentoResultanteB,  xFim, "Tensao principal no ponto B", "Pa", 12);
-plotaTensaoPrincipal(tensaoNormalResultanteC, tensaoCisalhamentoResultanteC,  xFim, "Tensao principal no ponto C", "Pa", 13);
-plotaTensaoPrincipal(tensaoNormalResultanteD, tensaoCisalhamentoResultanteD,  xFim, "Tensao principal no ponto D", "Pa", 14);
+plotaTensaoPrincipal(tensaoNormalResultanteA, tensaoCisalhamentoResultanteA,  xFim, "Tensao principal maxima no ponto A", "Pa", 11);
+plotaTensaoPrincipal(tensaoNormalResultanteB, tensaoCisalhamentoResultanteB,  xFim, "Tensao principal maxima no ponto B", "Pa", 12);
+plotaTensaoPrincipal(tensaoNormalResultanteC, tensaoCisalhamentoResultanteC,  xFim, "Tensao principal maxima no ponto C", "Pa", 13);
+plotaTensaoPrincipal(tensaoNormalResultanteD, tensaoCisalhamentoResultanteD,  xFim, "Tensao principal maxima no ponto D", "Pa", 14);
 
-plotaCriterioTresca(tensaoNormalResultanteA, tensaoCisalhamentoResultanteA,  xFim, "Criterio de Tresca no ponto A", "Pa", 15);
-plotaCriterioTresca(tensaoNormalResultanteB, tensaoCisalhamentoResultanteB,  xFim, "Criterio de Tresca no ponto B", "Pa", 16);
-plotaCriterioTresca(tensaoNormalResultanteC, tensaoCisalhamentoResultanteC,  xFim, "Criterio de Tresca no ponto C", "Pa", 17);
-plotaCriterioTresca(tensaoNormalResultanteD, tensaoCisalhamentoResultanteD,  xFim, "Criterio de Tresca no ponto D", "Pa", 18);
+plotaCriterioTresca(sy, tensaoNormalResultanteA, tensaoCisalhamentoResultanteA,  xFim, "Criterio de Tresca no ponto A", "Pa", 15);
+plotaCriterioTresca(sy, tensaoNormalResultanteB, tensaoCisalhamentoResultanteB,  xFim, "Criterio de Tresca no ponto B", "Pa", 16);
+plotaCriterioTresca(sy, tensaoNormalResultanteC, tensaoCisalhamentoResultanteC,  xFim, "Criterio de Tresca no ponto C", "Pa", 17);
+plotaCriterioTresca(sy, tensaoNormalResultanteD, tensaoCisalhamentoResultanteD,  xFim, "Criterio de Tresca no ponto D", "Pa", 18);
+
+plotaCriterioVonMises(sy, tensaoNormalResultanteA, tensaoCisalhamentoResultanteA,  xFim, "Criterio de Von Mises no ponto A", "Pa", 19);
+plotaCriterioVonMises(sy, tensaoNormalResultanteB, tensaoCisalhamentoResultanteB,  xFim, "Criterio de Von Mises no ponto B", "Pa", 20);
+plotaCriterioVonMises(sy, tensaoNormalResultanteC, tensaoCisalhamentoResultanteC,  xFim, "Criterio de Von Mises no ponto C", "Pa", 21);
+plotaCriterioVonMises(sy, tensaoNormalResultanteD, tensaoCisalhamentoResultanteD,  xFim, "Criterio de Von Mises no ponto D", "Pa", 22);
