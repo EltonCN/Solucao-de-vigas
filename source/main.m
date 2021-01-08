@@ -117,5 +117,17 @@ for i = 1:columns(cargas)
     singularidade = [singularidade, converteCargaParaSingularidade(cargas(i))];
 endfor
 
-calculaAlongamento(singularidade, areaSecao, moduloElastico, xFim);
+forcaNormal = calculaAlongamento(singularidade, areaSecao, moduloElastico, xFim);
 calculaTorcao(singularidade, momentoInerciaPolar, moduloCisalhamento, xFim);
+
+tensaoNormal = [];
+
+for j = 1:columns(forcaNormal)
+
+    tensaoNormal = [tensaoNormal, somaSingularidade(forcaNormal, tensaoNormal)];
+
+    for j = 1:6
+        tensaoNormal[j].magnitude[i] /= areaSecao;
+    endfor
+
+endfor
