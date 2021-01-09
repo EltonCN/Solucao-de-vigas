@@ -23,7 +23,7 @@ function forcaNormal = calculaAlongamento(singularidades, areaSecao, moduloElast
                 forcaInterna = integraSingularidade(forcaExterna);
 
                 forcaNormal = [forcaNormal, forcaInterna];
-                alongamento = [alongamento, integraSingularidade(forcaNormal(i))];
+                alongamento = [alongamento, integraSingularidade(forcaNormal(indice))];
 
                 for j = 1:6
 

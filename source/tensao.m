@@ -210,7 +210,12 @@ function plotaCriterioTresca(sy, tensaoCisalhamentoResultante, tensaoNormalResul
     for i=1:500
         x(i) = xAtual;
         [sigmaMax, sigmaMin] = avaliaTensaoPrincipal(tensaoCisalhamentoResultante, tensaoNormalResultante, xAtual);
-        y(i) = sy/(sigmaMax-sigmaMin);
+        
+        if((sigmaMax-sigmaMin) == 0)
+            y(i) = 0;
+        else
+            y(i) = sy/(sigmaMax-sigmaMin);
+        endif
 
         xAtual += passo;
     endfor
@@ -235,11 +240,16 @@ function plotaCriterioVonMises(sy, tensaoCisalhamentoResultante, tensaoNormalRes
         x(i) = xAtual;
         [sigmaMax, sigmaMin] = avaliaTensaoPrincipal(tensaoCisalhamentoResultante, tensaoNormalResultante, xAtual);
 
-        sigmaMed = (sigmaMax + sigmaMin)/2.0
+        sigmaMed = (sigmaMax + sigmaMin)/2.0;
 
         sigmaLinha = sqrt( ( ((sigmaMax-sigmaMin)^2)   +((sigmaMin-sigmaMed)^2)+((sigmaMed-sigmaMax)^2)  )/2.0);
 
-        y(i) = sy/sigmaLinha;
+        if(sigmaLinha == 0)
+            y(i) = 0;
+        else
+            y(i) = sy/sigmaLinha;
+        endif
+        
 
         xAtual += passo;
     endfor

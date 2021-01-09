@@ -107,6 +107,8 @@ disp("");
 disp("");
 disp("");
 
+disp("Caso o criterio de seguranca seja 0, nao existe tensao neste ponto");
+
 #analiseDeIntervalos(sistema, xInicio, xFim);
 
 singularidade = [];
@@ -134,12 +136,12 @@ tensaoNormal = calculaTensaoNormal(forcaNormal, areaSecao); #sempre igual
 tensaoCisalhamento = calculaTensaoCisalhamento(forcaCortante, areaSecao, raioExterno, raioInterno); #maxima 
 momento = calculaMomentoInterno(forcaCortante);
 tensaoNormalFlexao = calculaTensaoNormalFlexao(momento, momentoInercia, raioExterno); #y maximo positivo
-tensaoCisalhamentoTorque = calculaTensaoCisalhamentoTorque(singularidade, raioExterno, momentoInerciaPolar) #Positiva
+tensaoCisalhamentoTorque = calculaTensaoCisalhamentoTorque(singularidade, raioExterno, momentoInerciaPolar); #Positiva
 
 plotaSingularidade(tensaoNormal, xFim, "Tensao normal", "Pa", 7);
-plotaSingularidade(tensaoNormalFlexao, xFim, "Tensao normal de flexao", "Pa", 8);
-plotaSingularidade(tensaoCisalhamento, xFim, "Tensao de cisalhamento", "Pa", 9);
-plotaSingularidade(tensaoCisalhamentoTorque, xFim, "Tensao de cisalhamento por torque", "Pa", 10);
+plotaSingularidade(tensaoNormalFlexao, xFim, "Tensao normal de flexao maxima positiva", "Pa", 8);
+plotaSingularidade(tensaoCisalhamento, xFim, "Tensao de cisalhamento maxima", "Pa", 9);
+plotaSingularidade(tensaoCisalhamentoTorque, xFim, "Tensao de cisalhamento por torque positiva", "Pa", 10);
 
 [tensaoNormalResultanteA, tensaoCisalhamentoResultanteA] = calculaTensaoResultante(tensaoNormal, tensaoCisalhamento, tensaoNormalFlexao, tensaoCisalhamentoTorque, 0);
 [tensaoNormalResultanteB, tensaoCisalhamentoResultanteB] = calculaTensaoResultante(tensaoNormal, tensaoCisalhamento, tensaoNormalFlexao, tensaoCisalhamentoTorque, 1);
